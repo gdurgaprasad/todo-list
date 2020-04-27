@@ -27,7 +27,7 @@ function getTasks() {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem("tasks"));
-    tasks.forEach((task) => {
+    tasks.forEach(task => {
       const li = document.createElement("li");
       li.className = "collection-item";
       const inputValue = document.createTextNode(task);
@@ -47,26 +47,28 @@ function getTasks() {
 }
 
 function addTask(event) {
-  //CREATE LI ELEMENT
-  const li = document.createElement("li");
-  li.className = "collection-item";
-  const inputValue = document.createTextNode(input.value);
-  li.appendChild(inputValue);
+  if (input.value) {
+    //CREATE LI ELEMENT
+    const li = document.createElement("li");
+    li.className = "collection-item";
+    const inputValue = document.createTextNode(input.value);
+    li.appendChild(inputValue);
 
-  //APPEND LINK TO LI
-  const a = document.createElement("a");
-  a.classList.add("secondary-content");
-  const icon = `<i class="fa fa-remove"></i>`;
-  a.innerHTML = icon;
-  li.appendChild(a);
+    //APPEND LINK TO LI
+    const a = document.createElement("a");
+    a.classList.add("secondary-content");
+    const icon = `<i class="fa fa-remove"></i>`;
+    a.innerHTML = icon;
+    li.appendChild(a);
 
-  //APPEND LI TO UL
-  taskList.appendChild(li);
+    //APPEND LI TO UL
+    taskList.appendChild(li);
 
-  saveTaskToLocalStorage(input.value);
+    saveTaskToLocalStorage(input.value);
 
-  input.value = "";
-  event.preventDefault();
+    input.value = "";
+    event.preventDefault();
+  }
 }
 
 function removeTask(e) {
@@ -95,7 +97,7 @@ function clearTasks() {
 function filterTasks(e) {
   const value = e.target.value.trim().toLowerCase();
 
-  document.querySelectorAll(".collection-item").forEach((item) => {
+  document.querySelectorAll(".collection-item").forEach(item => {
     const textContent = item.textContent;
     if (textContent.toLowerCase().indexOf(value) != -1) {
       item.style.display = "block";
